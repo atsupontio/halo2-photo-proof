@@ -7,3 +7,6 @@ edition = "2021"
 
 [dependencies]
 image = "0.24.3"
+halo2_proofs = { version = "0.2.0", default-features = false }
+once_cell = { version = "1.16.0", default-features = false }
+rand_core = { version = "0.6", default-features = false, features = ["getrandom"] }

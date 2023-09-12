@@ -38,6 +38,14 @@ wasm-pack build --target web
 '''
 workspace = false
 
+[tasks.build-wasm-release]
+script_runner = "@shell"
+script = '''
+cd packages/wasm
+wasm-pack build --release --target web
+'''
+workspace = false
+
 [tasks.cp-wasm]
 script_runner = "@shell"
 script = '''
