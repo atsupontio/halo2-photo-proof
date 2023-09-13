@@ -8,6 +8,10 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib"]
 
+[profile.release]
+lto = true
+opt-level = "z"
+
 [dependencies]
 core = { path = "../core" }
 wasm-bindgen = { version = "0.2.81", features = ["serde-serialize"]}
