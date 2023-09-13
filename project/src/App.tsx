@@ -4,9 +4,10 @@ import init, {exec_mosaic, create_proof, verify_proof } from "./pkg/wasm";
 function App() {
   const [loadWasm, setLoadWasmFlg] = useState(false);
   const [loadedImage, setImage] = useState<HTMLImageElement | null>(null);
+  const [loadedSmallImage, setLoadedSmallImage] = useState<ArrayBuffer | null>(null);
   // const [loadedSmnallImage, setSmallImage] = useState<HTMLImageElement | null>(null);
   const [grain, setGrain] = useState(0);
-  const [proof, setProof] = useState('');
+  const [proof, setProof] = useState<ArrayBuffer | null>(null);
 
   const rawImagecanvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -38,15 +39,38 @@ function App() {
         loadedImage?.width || 0, // 幅
         loadedImage?.height || 0, // 高さ
       );
-      setProof(proof);
       const endTime = performance.now();
       console.log(endTime - startTime); 
+      // return <ByteDataDisplay byteData={proof} />;
+      setProof(proof);
     
     } else {
       // エラーハンドリング（getImageData が undefined を返した場合の処理）
       console.error("Image data is undefined");
     }
   }
+
+  // バイト列をBase64エンコードする関数
+  function arrayBufferToBase64(buffer: ArrayBuffer) {
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
+
+  // バイト列を表示するコンポーネント
+  function ByteDataDisplay({ byteData }: { byteData: ArrayBuffer | null }) {
+    if (!byteData) {
+      return null; // byteDataがnullの場合は何も表示しない
+    }
+    const base64Data = arrayBufferToBase64(byteData);
+    const dataUrl = `data:application/octet-stream;base64,${base64Data}`;
+
+    return <img src={dataUrl} alt="Byte Data" />;
+  }
+
 
   const getImageData = (): Uint8ClampedArray | undefined => {
     if (!loadedImage) {
@@ -77,23 +101,29 @@ function App() {
     return uint8ClampedArray;
   };
 
-  // const handleVerifyProof = () => {
-  //   const imageBuf = getImageData();
+  const handleVerifyProof = () => {
+    const imageBuf = loadedSmallImage;
 
-  //   if (imageBuf) {
-  //     // create_proof 関数に渡す
-  //     const proof = verify_proof(
-  //       imageBuf,
-  //       loadedImage?.width || 0, // 幅
-  //       loadedImage?.height || 0, // 高さ
-  //     );
-  //     setProof(proof);
+    if (imageBuf && proof) {
+      // ImageData から Uint8ClampedArray を取得
+      const proofArray = new Uint8ClampedArray(proof);
+      const smallImageArray = new Uint8ClampedArray(imageBuf);
+      console.log(loadedImage?.height ? Math.floor(loadedImage.height / 2) : 0)
+      // create_proof 関数に渡す
+      const result = verify_proof(
+        proofArray,
+        smallImageArray,
+        loadedImage?.width ? Math.floor(loadedImage.width / 2) : 0, // 幅
+        loadedImage?.height ? Math.floor(loadedImage.height / 2) : 0, // 高さ
+      );
+
+      console.log("result", result);
     
-  //   } else {
-  //     // エラーハンドリング（getImageData が undefined を返した場合の処理）
-  //     console.error("Image data is undefined");
-  //   }
-  // }
+    } else {
+      // エラーハンドリング（getImageData が undefined を返した場合の処理）
+      console.error("Image data is undefined");
+    }
+  }
 
 
   const handleSaveImage = () => {
@@ -211,6 +241,7 @@ function App() {
       new_width,
       new_height
     );
+    setLoadedSmallImage(iamgedata.data);
     console.log("iamgedata", iamgedata.width, iamgedata.height);
     const canvasRefCurrent = canvasRef.current; // null チェックのために変数に格納
 
@@ -267,8 +298,10 @@ function App() {
       <p>
       <button onClick={handleSaveImage}>Save Image</button>
       <button onClick={handleGenerateProof}>Generate Proof</button>
+      <button onClick={handleVerifyProof}>Verify Proof</button>
       </p>
-      <p>JsValueの文字列表現: {proof.toString().length}</p>
+      {/* <p>JsValueの文字列表現: {proof}</p> */}
+      <p>proof: <ByteDataDisplay byteData={proof} /></p>
       {/* <button onClick={handleVerifyProof}>Verify Proof</button> */}
     </div>
   );

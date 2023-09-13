@@ -10,9 +10,10 @@ pub fn exec_mosaic(buf: Clamped<Vec<u8>>, grain: u32, width: u32, height: u32) -
 
 #[wasm_bindgen]
 #[cfg(feature = "console_error_panic_hook")]
-pub fn create_proof(buf: Clamped<Vec<u8>>, width: u32, height: u32) -> JsValue {
+pub fn create_proof(buf: Clamped<Vec<u8>>, width: u32, height: u32) -> Vec<u8> {
     let proof = create_img_proof(buf.0, width, height);
-    JsValue::from_serde(&proof).unwrap()
+    // JsValue::from_serde(&proof).unwrap()
+    proof
 }
 
 #[wasm_bindgen]

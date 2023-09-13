@@ -17,10 +17,10 @@ fn main() {
     let s_vec = s_img.as_bytes().to_vec();
 
     let proof = core::create_img_proof(vec, width, height);
+    // 最初の時刻からの経過時間を表示
+    println!("time: {:?}", now.elapsed());
     let result = core::verify_img(proof, s_vec, s_width, s_height);
 
     println!("result: {}", result);
     assert_eq!(result, true);
-    // 最初の時刻からの経過時間を表示
-    println!("time: {:?}", now.elapsed());
 }
