@@ -24,7 +24,7 @@ This library could prove that the processed images were processed from the origi
 # How to use
 
 > **Warning**
-> 1. On my laptop it took about 100 to 150 seconds to generate a proof for a $100 \times 60$ image. Smaller image sizes are better.    
+> 1. On my laptop it took about 100 to 150 seconds to generate a proof for a $100 X 60$ image. Smaller image sizes are better.    
 > 2. If you use Chrome, please do not open the devtool while generating the proof. Opening it will slow down the proofing process.
 
 1. select the image you want to prove and upload it using the `Run` button   
