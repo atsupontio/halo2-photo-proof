@@ -6,10 +6,14 @@ You can verify with zkp if the processed image was processed from the original i
   <img src="image.png" alt="altテキスト" width="600px">
 </p>
 
-***DEMO:***
+**DEMO:**
 [Demo cite is here](https://silly-chimera-4a709a.netlify.app/)
 
 This project is part of the [PSE ZK Summer Contribution Program](https://pse-team.notion.site/PSE-ZK-Summer-Contribution-Program-fffef810476a45e88394fd120dc48697), so big thanks to [SoraSuegami](https://github.com/SoraSuegami) and [nuno](https://github.com/qope) for teaching us about halo2 implementation, wasm, and related libraries.
+
+## Disclaimer
+DO NOT USE THIS LIBRARY IN PRODUCTION. At this point, this is under development. It has known and unknown bugs and security flaws.
+
 # Motivation
 
 Many photos in newspapers and other media are taken with digital cameras. When a photo taken with a digital camera appears in a newspaper or online news, it is impossible to verify when, where and how it was taken  
