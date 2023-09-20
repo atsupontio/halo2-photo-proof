@@ -6,6 +6,9 @@ You can verify with zkp if the processed image was processed from the original i
   <img src="image.png" alt="altテキスト" width="600px">
 </p>
 
+***DEMO:***
+[Demo cite is here](https://silly-chimera-4a709a.netlify.app/)
+
 This project is part of the [PSE ZK Summer Contribution Program](https://pse-team.notion.site/PSE-ZK-Summer-Contribution-Program-fffef810476a45e88394fd120dc48697), so big thanks to aaa for teaching us about halo2 implementation, wasm, and related libraries.
 # Motivation
 
@@ -18,8 +21,6 @@ At this point, the signature no longer works and a new, third-party signature is
 For example, image processing software could perform the signature.   
 This library could prove that the processed images were processed from the original images. In other words, without re-signing the processed image data, it is possible to prove that the image was processed from the signed photograph.
 
-***DEMO:***
-[Demo cite is here](https://silly-chimera-4a709a.netlify.app/)
 # How to use
 
 1. select the image you want to prove and upload it using the `Run` button
@@ -76,7 +77,7 @@ Below is a diagram of the entire table.
 
 # TODO
 
-- [] range check implementation
-- [] Optimize circuitry and reduce execution time
-- [] Implement parallel processing using Web Worker, etc.
-- [] Implement other processing such as image rotation, cropping, etc.
+ - [ ] range check implementation
+ - [ ] Optimize circuitry and reduce execution time
+ - [ ] Implement parallel processing using Web Worker, etc.
+ - [ ] Implement other processing such as image rotation, cropping, etc.
