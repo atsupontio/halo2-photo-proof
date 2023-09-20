@@ -23,11 +23,13 @@ This library could prove that the processed images were processed from the origi
 
 # How to use
 
-1. select the image you want to prove and upload it using the `Run` button
-(You can also save the processed image with the `Save Image` button)
 > **Warning**
 > 1. On my laptop it took about 100 to 150 seconds to generate a proof for a $100 \times 60$ image. Smaller image sizes are better.    
 > 2. If you use Chrome, please do not open the devtool while generating the proof. Opening it will slow down the proofing process.
+
+1. select the image you want to prove and upload it using the `Run` button
+(You can also save the processed image with the `Save Image` button)
+
 2. Press the `Generate Proof` button to generate the proof.
      (It is also possible to copy the byte data of the zkp proof with `Copy Proof`)
 3. Verify the zkp proof using the `Verify Proof` button.
